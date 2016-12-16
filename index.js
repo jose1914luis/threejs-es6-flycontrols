@@ -5,7 +5,7 @@
 
 import { Quaternion, Vector3 } from 'three'
 
-function contextmenu( event ) {
+function contextmenu(event) {
 	event.preventDefault();
 }
 
@@ -39,7 +39,7 @@ module.exports = class FlyControls {
 		this.onKeyUp = this.handleKeyUp.bind(this)
 
 		// event listeners
-		this.domElement.addEventListener( 'contextmenu', contextmenu, false);
+		this.domElement.addEventListener('contextmenu', contextmenu, false);
 		this.domElement.addEventListener('mousemove', this.onMouseMove, false);
 		this.domElement.addEventListener('mousedown', this.onMouseDown, false);
 		this.domElement.addEventListener('mouseup', this.onMouseUp, false);
@@ -57,8 +57,8 @@ module.exports = class FlyControls {
 		this.domElement.removeEventListener('mousemove', this.onMouseMove, false);
 		this.domElement.removeEventListener('mouseup', this.onMouseUp, false);
 
-		window.removeEventListener('keydown', this.onKeyDown, false );
-		window.removeEventListener('keyup', this.onKeyUp, false );
+		window.removeEventListener('keydown', this.onKeyDown, false);
+		window.removeEventListener('keyup', this.onKeyUp, false);
 	}
 
 	keyHandler(code, amount, movementSpeedMultiplier) {
@@ -131,7 +131,6 @@ module.exports = class FlyControls {
 	}
 
 	handleMouseUp(event) {
-
 		event.preventDefault();
 		event.stopPropagation();
 
@@ -150,45 +149,44 @@ module.exports = class FlyControls {
 	}
 
 	update(delta) {
-
 		var moveMult = delta * this.movementSpeed;
 		var rotMult = delta * this.rollSpeed;
 
-		this.object.translateX( this.moveVector.x * moveMult );
-		this.object.translateY( this.moveVector.y * moveMult );
-		this.object.translateZ( this.moveVector.z * moveMult );
+		this.object.translateX(this.moveVector.x * moveMult);
+		this.object.translateY(this.moveVector.y * moveMult);
+		this.object.translateZ(this.moveVector.z * moveMult);
 
-		this.tmpQuaternion.set( this.rotationVector.x * rotMult, this.rotationVector.y * rotMult, this.rotationVector.z * rotMult, 1 ).normalize();
-		this.object.quaternion.multiply( this.tmpQuaternion );
+		this.tmpQuaternion.set(this.rotationVector.x * rotMult, this.rotationVector.y * rotMult, this.rotationVector.z * rotMult, 1).normalize();
+		this.object.quaternion.multiply(this.tmpQuaternion);
 
 		// expose the rotation vector for convenience
-		this.object.rotation.setFromQuaternion( this.object.quaternion, this.object.rotation.order );
+		this.object.rotation.setFromQuaternion(this.object.quaternion, this.object.rotation.order);
 	}
 
 	updateMovementVector() {
-		var forward = ( this.moveState.forward || ( this.autoForward && ! this.moveState.back ) ) ? 1 : 0;
+		var forward = ( this.moveState.forward || (this.autoForward && ! this.moveState.back) ) ? 1 : 0;
 
-		this.moveVector.x = ( - this.moveState.left    + this.moveState.right );
-		this.moveVector.y = ( - this.moveState.down    + this.moveState.up );
-		this.moveVector.z = ( - forward + this.moveState.back );
+		this.moveVector.x = -this.moveState.left + this.moveState.right;
+		this.moveVector.y = -this.moveState.down + this.moveState.up;
+		this.moveVector.z = -forward + this.moveState.back;
 	}
 
 	updateRotationVector() {
-		this.rotationVector.x = ( - this.moveState.pitchDown + this.moveState.pitchUp );
-		this.rotationVector.y = ( - this.moveState.yawRight  + this.moveState.yawLeft );
-		this.rotationVector.z = ( - this.moveState.rollRight + this.moveState.rollLeft );
+		this.rotationVector.x = (-this.moveState.pitchDown + this.moveState.pitchUp);
+		this.rotationVector.y = (-this.moveState.yawRight  + this.moveState.yawLeft);
+		this.rotationVector.z = (-this.moveState.rollRight + this.moveState.rollLeft);
 	}
 
 	getContainerDimensions() {
 		if (this.domElement !== document) {
 			return {
-				size	: [ this.domElement.offsetWidth, this.domElement.offsetHeight ],
-				offset	: [ this.domElement.offsetLeft,  this.domElement.offsetTop ]
+				size : [ this.domElement.offsetWidth, this.domElement.offsetHeight ],
+				offset : [ this.domElement.offsetLeft,  this.domElement.offsetTop ]
 			}
 		} else {
 			return {
-				size	: [ window.innerWidth, window.innerHeight ],
-				offset	: [ 0, 0 ]
+				size : [ window.innerWidth, window.innerHeight ],
+				offset : [ 0, 0 ]
 			}
 		}
 	}
