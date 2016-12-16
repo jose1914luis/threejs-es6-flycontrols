@@ -1,0 +1,26 @@
+{
+  "name": "threejs-es6-flycontrols",
+  "version": "1.0.0",
+  "description": "an es6 ready flycontrols for threejs Edit",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo 'none'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bitttttten/threejs-es6-flycontrols.git"
+  },
+  "keywords": [
+    "threejs",
+    "three",
+    "flycontrols",
+    "fly",
+    "controls"
+  ],
+  "author": "bitttttten <https://github.com/bitttttten> (https://github.com/bitttttten)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bitttttten/threejs-es6-flycontrols/issues"
+  },
+  "homepage": "https://github.com/bitttttten/threejs-es6-flycontrols#readme"
+}
